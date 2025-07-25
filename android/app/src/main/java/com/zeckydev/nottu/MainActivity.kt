@@ -1,4 +1,4 @@
-package com.nottu
+package com.zeckydev.nottu
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

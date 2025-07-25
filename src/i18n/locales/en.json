@@ -1,0 +1,78 @@
+{
+  "onboarding": {
+    "share_your_moments": "Share Your Moments",
+    "share_your_moments_descr": "Keep your special moments close right on your home screen.",
+    "easy_to_use": "Easy To Use",
+    "easy_to_use_descr": "Share your code with someone you'd like to connect with then start sending notes to each other.",
+    "lets_get_started": "Let’s Get Started!",
+    "lets_get_started_descr": "Create your account and start sharing moments with someone special.",
+    "welcome_to_nottu": "Welcome to Nottu!",
+    "welcome_to_nottu_descr": "The easiest way to share how you feel or what you're experiencing.",
+    "why_nottu": "Why Nottu?",
+    "why_nottu_descr": "You can express your mood or a moment to just one person through widget notes."
+  },
+  "errors": {
+    "email_not_valid": "E-mail is not valid.",
+    "email_required": "E-mail is required.",
+    "password_required": "Password is required.",
+    "password_not_same": "Passwords don't match.",
+    "name_surname_required": "Name and surname is required.",
+    "something_went_wrong": "Something went wrong. Please try again later."
+  },
+  "button": {
+    "back": "Back",
+    "continue": "Continue",
+    "lets_go": "Let's Go!",
+    "login": "Login",
+    "register": "Register",
+    "forgot_password": "Forgot Password?",
+    "reset_password": "Reset Password",
+    "select_photo": "Select Photo (Optional)",
+    "copy": "Copy",
+    "share": "Share"
+  },
+  "text": {
+    "email": "E-mail Address",
+    "email_placeholder": "example@email.com",
+    "password": "Password",
+    "password_again": "Password Again",
+    "create_account": "Create Account",
+    "dummy_names_placeholder": "John Doe",
+    "name_and_surname": "Name and Surname",
+    "permission_required": "Permission Required",
+    "notifications_permission_description": "We need notification permission to keep you informed when new notes are sent or when important updates occur, such as pairing status.",
+    "contacts_permission_description": "We need access to your contacts so you can easily invite friends or share your pairing code.",
+    "give_permission": "Allow",
+    "reject_permission": "Reject",
+    "activate_notifications": "Enable Notifications",
+    "activate_notifications_descr": "Enable notifications to be notified when someone shares a note with you or pairs with you.",
+    "connect_with_contacts": "Connect Contacts",
+    "connect_with_contacts_descr": "Connect your contacts to quickly reach your friends and invite them.",
+    "you_are_all_set": "You are all set",
+    "register_complete_descr": "This is your match code — share it with someone you'd like to start exchanging notes with.",
+    "register_complete_info": "You can always access your match code within the app.",
+    "loading": "Loading...",
+    "success": "Success",
+    "fail": "Failed",
+    "copy_success": "Copy operation completed.",
+    "share_match_code_title": "Match Code Sharing",
+    "my_share_code": "My NOTTU match code",
+    "you_can_add_me": "you can add me with this code.",
+    "permission_granted": "Granted"
+  },
+  "firebase": {
+    "errors": {
+      "generic": "An error occured!",
+      "auth": {
+        "email_already_in_use": "This email address is already in use.",
+        "invalid_email": "Invalid email address.",
+        "user_not_found": "User not found.",
+        "wrong_password": "Incorrect password.",
+        "weak_password": "Password should be at least 6 characters.",
+        "network_request_failed": "Please check your internet connection.",
+        "too_many_requests": "Too many attempts. Please try again later.",
+        "invalid_credential": "Invalid email or password. Please try again."
+      }
+    }
+  }
+}

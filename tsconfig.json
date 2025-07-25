@@ -8,6 +8,18 @@
       "@components": ["./components"],
       "@components/*": ["./components/*"],
       "@colors": ["./theme/colors"],
+      "@context": ["./context"],
+      "@context/*": ["./context/*"],
+      "@navigation": ["./navigation"],
+      "@navigation/*": ["./navigation/*"],
+      "@utils": ["./utils"],
+      "@utils/*": ["./utils/*"],
+      "@types": ["./types"],
+      "@types/*": ["./types/*"],
+      "@api": ["./api"],
+      "@api/*": ["./api/*"],
+      "@assets": ["./assets"],
+      "@assets/*": ["./assets/*"],
     }
   }
 }

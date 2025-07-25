@@ -9,13 +9,14 @@ export default StyleSheet.create({
   },
   title: {
     color: COLORS.white,
-    fontSize: 32,
+    fontSize: 28,
     fontFamily: 'Quicksand-Medium',
   },
   description: {
     color: COLORS.white,
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: 'Quicksand-Regular',
     textAlign: 'center',
+    marginHorizontal: 32
   },
 });

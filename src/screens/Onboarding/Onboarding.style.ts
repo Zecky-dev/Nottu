@@ -7,6 +7,11 @@ export default StyleSheet.create({
         flex: 1,
     },
     buttonsContainer: {
-        
+        padding: 12,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    buttonContainer: {
+        width: 140,
     }
 });

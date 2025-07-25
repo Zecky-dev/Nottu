@@ -36,6 +36,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       disabled={disabled || loading}
       style={[
         styles.container,

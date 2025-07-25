@@ -1,0 +1,77 @@
+{
+  "onboarding": {
+    "share_your_moments": "Anılarını Paylaş",
+    "share_your_moments_descr": "Özel anılarını ana ekranında sakla ve onlara her an ulaş.",
+    "easy_to_use": "Kullanımı Kolay",
+    "easy_to_use_descr": "Not arkadaşı olmak istediğin kişiyle kodunu paylaş, ardından birbirinize notlar göndermeye başlayın.",
+    "lets_get_started": "Haydi Başlayalım!",
+    "lets_get_started_descr": "Hesabını oluştur ve istediklerinle anlarını paylaş.",
+    "welcome_to_nottu": "Nottu'ya Hoşgeldin!",
+    "welcome_to_nottu_descr": "Anılarını ya da nasıl hissettiğini paylaşmanın en kolay yolu.",
+    "why_nottu": "Neden Nottu?",
+    "why_nottu_descr": "Sadece seçtiğiniz kişiye anınızı veya modunuzu Widget notları ile yansıtabilirsiniz."
+  },
+  "errors": {
+    "email_not_valid": "E-posta formatı yanlış.",
+    "email_required": "E-posta boş geçilemez.",
+    "password_required": "Şifre boş geçilemez.",
+    "passwords_not_same": "Şifreler uyuşmuyor.",
+    "name_surname_required": "Lütfen isim ve soyisim giriniz."
+  },
+  "button": {
+    "continue": "Devam Et",
+    "lets_go": "Başlayalım!",
+    "back": "Geri",
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "forgot_password": "Şifremi Unuttum?",
+    "reset_password": "Şifremi Sıfırla",
+    "select_photo": "Fotoğraf Seç (Opsiyonel)",
+    "copy": "Kopyala",
+    "share": "Paylaş"
+  },
+  "text": {
+    "email": "E-posta Adresi",
+    "email_placeholder": "ornek@eposta.com",
+    "password": "Şifre",
+    "password_again": "Şifre Tekrar",
+    "create_account": "Hesap Oluştur",
+    "dummy_names_placeholder": "Ahmet Yılmaz",
+    "name_and_surname": "İsim ve Soyisim",
+    "permission_required": "İzin Gerekli",
+    "notifications_permission_description": "Yeni notlar gönderildiğinde veya eşleşme durumları gibi önemli gelişmelerde sizi bilgilendirebilmemiz için bildirim iznine ihtiyacımız var.",
+    "contacts_permission_description": "Arkadaşlarını davet etmek veya eşleşme kodunu kolayca paylaşmak için kişi listenize erişim iznine ihtiyacımız var.",
+    "give_permission": "İzin Ver",
+    "reject_permission": "Reddet",
+    "activate_notifications": "Bildirimleri Etkinleştir",
+    "activate_notifications_descr": "Birisi seninle bir not paylaştığında veya eşleştiğinde haberdar olmak için bildirimleri etkinleştir.",
+    "connect_with_contacts": "Rehbere Bağlan",
+    "connect_with_contacts_descr": "Arkadaşlarına hızlı bir şekilde ulaşmak ve onları davet etmek için rehbere bağlan.",
+    "you_are_all_set": "Her şey tamam",
+    "register_complete_descr": "Eşleşme kodunu notlarını paylaşmak istediğin arkadaşlarınla paylaş!",
+    "register_complete_info": "Eşleşme koduna uygulama içerisinde her zaman erişebilirsin.",
+    "loading": "Yükleniyor...",
+    "success": "Başarılı",
+    "fail": "Başarısız",
+    "copy_success": "Kopyalama işlemi gerçekleştirildi.",
+    "share_match_code_title": "Eşleşme Kodu Paylaşımı",
+    "my_share_code": "Benim NOTTU eşleşme kodum",
+    "you_can_add_me": "beni bu kod ile ekleyebilirsin.",
+    "permission_granted": "İzin Verildi"
+  },
+  "firebase": {
+    "errors": {
+      "generic": "Bir hata oluştu!",
+      "auth": {
+        "email_already_in_use": "Bu e-posta adresi zaten kullanılıyor.",
+        "invalid_email": "Geçersiz e-posta adresi.",
+        "user_not_found": "Kullanıcı bulunamadı.",
+        "wrong_password": "Şifre hatalı.",
+        "weak_password": "Şifre en az 6 karakter olmalıdır.",
+        "network_request_failed": "Lütfen internet bağlantınızı kontrol edin.",
+        "too_many_requests": "Çok fazla deneme yapıldı. Lütfen daha sonra tekrar deneyin.",
+        "invalid_credential": "Geçersiz e-posta veya şifre. Lütfen tekrar deneyin."
+      }
+    }
+  }
+}

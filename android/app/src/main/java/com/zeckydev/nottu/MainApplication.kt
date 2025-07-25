@@ -1,4 +1,4 @@
-package com.nottu
+package com.zeckydev.nottu
 
 import android.app.Application
 import com.facebook.react.PackageList
