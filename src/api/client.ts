@@ -33,8 +33,6 @@ const generateBaseURL = () => {
 
 const BASE_URL = generateBaseURL();
 
-console.log('BASE_URL', BASE_URL)
-
 const apiClient = axios.create({
   baseURL: BASE_URL,
   timeout: 15000,

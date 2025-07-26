@@ -62,16 +62,25 @@
   },
   "firebase": {
     "errors": {
-      "generic": "An error occured!",
-      "auth": {
+      "generic": "An error occurred!"
+    },
+    "auth": {
+      "errors": {
         "email_already_in_use": "This email address is already in use.",
         "invalid_email": "Invalid email address.",
         "user_not_found": "User not found.",
         "wrong_password": "Incorrect password.",
-        "weak_password": "Password should be at least 6 characters.",
+        "weak_password": "Password must be at least 6 characters.",
         "network_request_failed": "Please check your internet connection.",
         "too_many_requests": "Too many attempts. Please try again later.",
-        "invalid_credential": "Invalid email or password. Please try again."
+        "invalid_credential": "Invalid email or password. Please try again.",
+        "reset_password_failed": "An error occurred during the password reset process. Please make sure the information you entered is correct."
+      },
+      "success": {
+        "reset_password_sent": "A password reset email has been sent. Please check your inbox.",
+        "login_success": "Logged in successfully.",
+        "logout_success": "Logged out successfully.",
+        "register_success": "Account created successfully."
       }
     }
   }

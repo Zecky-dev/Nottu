@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, View, Text, Pressable } from 'react-native';
+import { KeyboardAvoidingView, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackButton, Button } from '@components';
 import LinearGradient from 'react-native-linear-gradient';
@@ -8,20 +8,26 @@ import COLORS from '@colors';
 import styles from './ForgotPassword.style';
 
 import { useTranslation } from 'react-i18next';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { AuthStackParamList } from '@navigation/types';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { validateEmail } from '@utils';
+import { useLanguage } from '@context/LanguageContext';
+import { useAuth } from '@context/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 const ForgotPassword = () => {
   const { t } = useTranslation();
+  const { language } = useLanguage();
+  const { resetPassword } = useAuth();
+  const navigation = useNavigation();
+  
+
   const route = useRoute<RouteProp<AuthStackParamList>>();
+  
   const [emailAddress, setEmailAddress] = useState(route.params?.email ?? '');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
-
-  const navigation =
-    useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
 
   const validateEmailInput = (email: string): string => {
     const trimmed = email.trim();
@@ -34,7 +40,7 @@ const ForgotPassword = () => {
     return '';
   };
 
-  const onContinue = () => {
+  const onContinue = async () => {
     setIsSubmitted(true);
     const errorMessage = validateEmailInput(emailAddress);
     if (errorMessage) {
@@ -42,7 +48,11 @@ const ForgotPassword = () => {
       return;
     }
     setError('');
-    // Reset işlemleri burada başlatılır
+    const res = await resetPassword(emailAddress, language);
+    if(res && res.success) {
+      // Bir önceki sayfaya (şifre girme sayfasına geri dönmeli)
+      navigation.goBack();
+    }
   };
 
   return (
@@ -60,7 +70,7 @@ const ForgotPassword = () => {
         >
           <View style={styles.innerContentContainer}>
             <View style={styles.backButtonContainer}>
-              <BackButton/>
+              <BackButton />
             </View>
             <Text style={styles.title}>NOTTU</Text>
             <Input

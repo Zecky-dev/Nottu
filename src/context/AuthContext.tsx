@@ -5,6 +5,7 @@ import React, {
   useState,
   ReactNode,
 } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   getAuth,
   onAuthStateChanged,
@@ -14,14 +15,18 @@ import {
   updateProfile,
   FirebaseAuthTypes,
 } from '@react-native-firebase/auth';
-import { getFirestore, doc, setDoc, serverTimestamp } from '@react-native-firebase/firestore';
-
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  serverTimestamp,
+} from '@react-native-firebase/firestore';
 import { mapAuthErrorToMessage } from '@utils';
 import { generateUniqueMatchCode } from '@utils/generateMatchCode';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLoading } from './LoadingContext';
 import { showToast } from '@utils/toastConfig';
 import { t } from 'i18next';
+import { sendResetPasswordEmail } from '@api/auth';
 
 type AuthContextType = {
   user: FirebaseAuthTypes.User | null;
@@ -36,6 +41,10 @@ type AuthContextType = {
     nameSurname: string,
   ) => Promise<FirebaseAuthTypes.User | null>;
   logout: () => Promise<void>;
+  resetPassword: (
+    email: string,
+    language: 'tr' | 'en',
+  ) => Promise<{ success: true; message: string; email: string } | null>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -96,11 +105,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       await signInWithEmailAndPassword(auth, email, password);
       setRegisterCompleted(true);
     } catch (err: any) {
-      console.log(err.code);
       showToast({
         type: 'error',
         text1: t('text.fail'),
-        text2: t(mapAuthErrorToMessage(err.code || '')),
+        text2: t(mapAuthErrorToMessage(err.code)),
         visibilityTime: 1500,
       });
     } finally {
@@ -143,7 +151,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       });
       return currentUser;
     } catch (err: any) {
-      setError(mapAuthErrorToMessage(err.code || ''));
+      setError(mapAuthErrorToMessage(err.code));
       return null;
     }
   };
@@ -156,7 +164,35 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(null);
       setRegisterCompleted(false);
     } catch (err: any) {
-      setError(mapAuthErrorToMessage(err.code || ''));
+      setError(mapAuthErrorToMessage(err.code));
+    } finally {
+      hideLoading();
+    }
+  };
+
+  const resetPassword = async (
+    email: string,
+    language: 'tr' | 'en',
+  ): Promise<{ success: true; message: string; email: string } | null> => {
+    showLoading();
+    setError(null);
+    try {
+      const res = await sendResetPasswordEmail(email, language);
+      showToast({
+        type: 'success',
+        text1: t('text.success'),
+        text2: t('firebase.auth.success.reset_password_sent'),
+        visibilityTime: 2500,
+      });
+      return res;
+    } catch (err: any) {
+      showToast({
+        type: 'danger',
+        text1: t('text.fail'),
+        text2: t('firebase.auth.errors.reset_password_failed'),
+        visibilityTime: 2500,
+      });
+      return null;
     } finally {
       hideLoading();
     }
@@ -173,6 +209,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         logout,
         registerCompleted,
         setRegisterCompleted,
+        resetPassword,
       }}
     >
       {children}

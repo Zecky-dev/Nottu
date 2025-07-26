@@ -61,8 +61,10 @@
   },
   "firebase": {
     "errors": {
-      "generic": "Bir hata oluştu!",
-      "auth": {
+      "generic": "Bir hata oluştu!"
+    },
+    "auth": {
+      "errors": {
         "email_already_in_use": "Bu e-posta adresi zaten kullanılıyor.",
         "invalid_email": "Geçersiz e-posta adresi.",
         "user_not_found": "Kullanıcı bulunamadı.",
@@ -70,7 +72,14 @@
         "weak_password": "Şifre en az 6 karakter olmalıdır.",
         "network_request_failed": "Lütfen internet bağlantınızı kontrol edin.",
         "too_many_requests": "Çok fazla deneme yapıldı. Lütfen daha sonra tekrar deneyin.",
-        "invalid_credential": "Geçersiz e-posta veya şifre. Lütfen tekrar deneyin."
+        "invalid_credential": "Geçersiz e-posta veya şifre. Lütfen tekrar deneyin.",
+        "reset_password_failed": "Şifre sıfırlama işlemi sırasında bir hata oluştu, doğru bilgileri girdiğinizden emin olunuz."
+      },
+      "success": {
+        "reset_password_sent": "Şifre sıfırlaması için e-posta gönderildi. Gelen kutunuzu kontrol ediniz.",
+        "login_success": "Başarıyla giriş yapıldı.",
+        "logout_success": "Başarıyla çıkış yapıldı.",
+        "register_success": "Hesap başarıyla oluşturuldu."
       }
     }
   }
