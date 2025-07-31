@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  Alert,
   Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,30 +22,23 @@ import {
 } from '@react-navigation/native';
 import { AuthStackParamList } from '@navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { launchImageLibrary } from 'react-native-image-picker';
-
 import { getFirestore, doc, setDoc } from '@react-native-firebase/firestore';
 import { updateProfile, getIdToken } from '@react-native-firebase/auth';
-
-import styles from './RegisterPersonalInfo.style';
 import { useAuth } from '@context/AuthContext';
-
-import { Photo as PhotoType } from '@types';
 import { uploadPhotoToCloudinary } from '@api/uploadPhoto';
-import ImageResizer from 'react-native-image-resizer';
-import { generateUniqueMatchCode } from '@utils/generateMatchCode';
 import { useLoading } from '@context/LoadingContext';
+import styles from './RegisterPersonalInfo.style';
+import usePhotoPicker from '@hooks/usePhotoPicker';
 
 const RegisterPersonalInfo = () => {
   const { t } = useTranslation();
 
   const [nameSurname, setNameSurname] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const { photo, selectPhoto } = usePhotoPicker();
 
-  const { register } = useAuth();
+  const { register, updateUserInfo } = useAuth();
   const { isLoading, showLoading, hideLoading } = useLoading();
-
-  const [photo, setPhoto] = useState<PhotoType | null>(null);
 
   const navigation =
     useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
@@ -54,35 +46,6 @@ const RegisterPersonalInfo = () => {
     useRoute<RouteProp<AuthStackParamList, 'RegisterPersonalInfo'>>();
 
   const db = getFirestore();
-
-  const selectPhoto = useCallback(async () => {
-    try {
-      const result = await launchImageLibrary({
-        mediaType: 'photo',
-        selectionLimit: 1,
-        quality: 0.5,
-      });
-
-      if (result.assets?.length) {
-        const asset = result.assets[0];
-        if (!asset.uri) return;
-        const resizedImage = await ImageResizer.createResizedImage(
-          asset.uri,
-          800,
-          800,
-          'JPEG',
-          80,
-        );
-        setPhoto({
-          uri: resizedImage.uri,
-          type: asset.type || 'image/jpeg',
-          fileName: `photo_${route.params.email}`,
-        });
-      }
-    } catch (error) {
-      console.error('SELECT_PHOTO_ERROR', error);
-    }
-  }, [route.params.email, t]);
 
   const handleRegister = useCallback(async () => {
     setError(null);
@@ -101,19 +64,13 @@ const RegisterPersonalInfo = () => {
         return;
       }
 
-      if (photo) {
+      if (photo && registeredUser.email) {
         const idToken = await getIdToken(registeredUser);
-        const uploadedPhoto = await uploadPhotoToCloudinary(photo, idToken);
-
-        await setDoc(
-          doc(db, 'Users', registeredUser.uid),
-          { avatar: uploadedPhoto },
-          { merge: true },
-        );
-
+        const uploadedPhoto = await uploadPhotoToCloudinary(photo, idToken, registeredUser.email);
         await updateProfile(registeredUser, {
           photoURL: uploadedPhoto.url,
         });
+        await updateUserInfo({avatar: uploadedPhoto}, registeredUser.uid)
       }
     } catch (e) {
       console.error('Registration error:', e);
@@ -125,9 +82,7 @@ const RegisterPersonalInfo = () => {
           routes: [{ name: 'RegisterPermissionRequest' }],
         }),
       );
-      setTimeout(() => {
-        hideLoading();
-      }, 1500) 
+      hideLoading();
     }
   }, [nameSurname, photo, register, route.params, db, navigation, t]);
 
@@ -151,7 +106,7 @@ const RegisterPersonalInfo = () => {
             <Text style={styles.title}>NOTTU</Text>
             <Text style={styles.subTitle}>{t('text.create_account')}</Text>
             <TouchableOpacity
-              onPress={selectPhoto}
+              onPress={() => selectPhoto(route.params.email)}
               style={styles.selectPhotoButton}
               disabled={isLoading}
             >

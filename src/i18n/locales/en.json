@@ -17,7 +17,9 @@
     "password_required": "Password is required.",
     "password_not_same": "Passwords don't match.",
     "name_surname_required": "Name and surname is required.",
-    "something_went_wrong": "Something went wrong. Please try again later."
+    "something_went_wrong": "Something went wrong. Please try again later.",
+    "mail_app_cannot_opened": "Unable to open mail app.",
+    "update_photo_error": "An error occurred while updating photo."
   },
   "button": {
     "back": "Back",
@@ -29,7 +31,15 @@
     "reset_password": "Reset Password",
     "select_photo": "Select Photo (Optional)",
     "copy": "Copy",
-    "share": "Share"
+    "share": "Share",
+    "contact_us": "Contact Us",
+    "rate_app": "Rate App",
+    "logout": "Logout",
+    "save": "Save",
+    "get_premium": "Get Premium",
+    "add_new_note_friend": "Add New Note Friend",
+    "share_match_code": "Share Match Code",
+    "send_match_request": "Send Match Request"
   },
   "text": {
     "email": "E-mail Address",
@@ -58,7 +68,41 @@
     "share_match_code_title": "Match Code Sharing",
     "my_share_code": "My NOTTU match code",
     "you_can_add_me": "you can add me with this code.",
-    "permission_granted": "Granted"
+    "permission_granted": "Granted",
+    "notifications": "Notifications",
+    "notification_grant_info": "It enables notifications when you receive a new note.",
+    "notification_permission_change_info": "To turn off notifications, please adjust the permissions in your device’s settings menu.",
+    "notification_permission_settings": "Notification Permission Settings",
+    "language": "Language",
+    "tr": "Turkish",
+    "en": "English",
+    "fast_access": "Fast Access",
+    "ad_banner": "AD BANNER",
+    "other": "Other",
+    "premium": {
+      "membership": "Premium Membership",
+      "no_ads": "No more banner ADS",
+      "note_background": "Premium note background",
+      "stickers": "Premium stickers",
+      "fonts": "Premium bonts",
+      "badge": "Premium badge",
+      "more_note_friends": "Ability to add 5 more note friend",
+      "access_note_history": "Access to full note history instead of just the last 50 notes",
+      "scheduled_note_sharing": "Scheduled note sharing for special for special days",
+      "get_once_own_forever": "Get once, own forever!"
+    },
+    "are_you_sure": "Are you sure?",
+    "are_you_sure_logout": "Are you sure you want to log out?",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "or": "OR",
+    "settings": "Settings",
+    "how_it_works": "How it works?",
+    "how_it_works_descr": "Share your 6-digit match code with a friend to become note buddies, or enter your friend's code to send them a request.",
+    "your_match_code": "Your Match Code",
+    "match_with_your_friend": "Match With Your Friend",
+    "enter_friends_match_code": "Enter Your Friend's Match Code"
   },
   "firebase": {
     "errors": {

@@ -11,57 +11,12 @@ import styles from './RegisterComplete.style';
 import { Text, View } from 'react-native';
 import { Button, Icon } from '@components';
 import { useAuth } from '@context/AuthContext';
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-} from '@react-native-firebase/firestore';
-import { User } from '@types';
 import { useLoading } from '@context/LoadingContext';
 import { t } from 'i18next';
 import { showToast } from '@utils/toastConfig';
 
 const RegisterPermissionRequest = () => {
-  const [userInfo, setUserInfo] = useState<User | null>(null);
-  const { user, setRegisterCompleted } = useAuth();
-  const { showLoading, hideLoading } = useLoading();
-
-  const fetchUserByUID = async () => {
-    try {
-      showLoading();
-      const uid = user?.uid;
-      if (!uid) {
-        return null;
-      }
-      const db = getFirestore();
-      const usersRef = collection(db, 'Users');
-      const q = query(usersRef, where('uid', '==', uid));
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
-        const userData = querySnapshot.docs[0].data();
-        return userData;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      return null;
-    } finally {
-      hideLoading();
-    }
-  };
-
-  useEffect(() => {
-    fetchUserByUID()
-      .then(userInfo => {
-        setUserInfo(userInfo);
-      })
-      .catch(error => {
-        console.log('FETCH_USER_ERROR', error);
-        setUserInfo(null);
-      });
-  }, [user]);
+  const { userInfo, setRegisterCompleted } = useAuth();
 
   // Copy code
   const copyCode = (code?: string) => {

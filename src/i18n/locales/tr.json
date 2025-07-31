@@ -16,7 +16,8 @@
     "email_required": "E-posta boş geçilemez.",
     "password_required": "Şifre boş geçilemez.",
     "passwords_not_same": "Şifreler uyuşmuyor.",
-    "name_surname_required": "Lütfen isim ve soyisim giriniz."
+    "name_surname_required": "Lütfen isim ve soyisim giriniz.",
+    "update_photo_error": "Fotoğraf güncellenirken bir hata oluştu."
   },
   "button": {
     "continue": "Devam Et",
@@ -28,7 +29,15 @@
     "reset_password": "Şifremi Sıfırla",
     "select_photo": "Fotoğraf Seç (Opsiyonel)",
     "copy": "Kopyala",
-    "share": "Paylaş"
+    "share": "Paylaş",
+    "contact_us": "İletişime Geç",
+    "rate_app": "Değerlendir",
+    "logout": "Çıkış Yap",
+    "save": "Kaydet",
+    "get_premium": "Premium Al",
+    "add_new_note_friend": "Not Arkadaşı Ekle",
+    "share_match_code": "Eşleşme Kodunu Paylaş",
+    "send_match_request": "Eşleşme İsteği Gönder"
   },
   "text": {
     "email": "E-posta Adresi",
@@ -57,7 +66,41 @@
     "share_match_code_title": "Eşleşme Kodu Paylaşımı",
     "my_share_code": "Benim NOTTU eşleşme kodum",
     "you_can_add_me": "beni bu kod ile ekleyebilirsin.",
-    "permission_granted": "İzin Verildi"
+    "permission_granted": "İzin Verildi",
+    "notifications": "Bildirimler",
+    "notification_grant_info": "Yeni bir not aldığınızda bildirim almanızı sağlar.",
+    "notification_permission_change_info": "Bildirimleri kapatmak için lütfen cihazınızın ayarlar menüsünden izinleri düzenleyin.",
+    "notification_permission_settings": "Bildirim İzni Ayarları",
+    "language": "Dil",
+    "tr": "Türkçe",
+    "en": "İngilizce",
+    "fast_access": "Hızlı Erişim",
+    "ad_banner": "REKLAM ALANI",
+    "other": "Diğer",
+    "premium": {
+      "membership": "Premium Üyelik",
+      "no_ads": "Reklamları kaldır",
+      "note_background": "Premium not arkaplanları",
+      "stickers": "Premium çıkartmalar",
+      "fonts": "Premium yazı tipleri",
+      "badge": "Premium rozeti",
+      "more_note_friends": "Ek olarak 5 not arkadaşı daha ekleme",
+      "access_note_history": "Son 50 not yerine bütün not geçmişine ulaşabilme",
+      "scheduled_note_sharing": "Özel günler için zamanlanmış not paylaşımı",
+      "get_once_own_forever": "Bir defa al, sınırsız süreyle sahip ol!"
+    },
+    "are_you_sure": "Emin misiniz?",
+    "are_you_sure_logout": "Çıkış yapmak istediğinize emin misiniz?",
+    "cancel": "İptal Et",
+    "yes": "Evet",
+    "no": "Hayır",
+    "or": "VEYA",
+    "settings": "Ayarlar",
+    "how_it_works": "Nasıl Çalışır?",
+    "how_it_works_descr": "Not arkadaşı olmak istediğin kişiyle 6 haneli eşleşeme kodunu paylaş veya arkadaşının eşleşme kodunu girerek ona istek yolla.",
+    "your_match_code": "Eşleşme Kodun",
+    "match_with_your_friend": "Arkadaşınla Eşleş",
+    "enter_friends_match_code": "Arkadaşının Eşleşme Kodunu Gir"
   },
   "firebase": {
     "errors": {

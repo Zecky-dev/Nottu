@@ -124,7 +124,7 @@ export const toastConfig: ToastConfig = {
 
 export const showToast = (params: Omit<ToastShowParams, 'topOffset'>) => {
   Toast.show({
-    topOffset: 36,
+    topOffset: 24,
     ...params,
   });
 };

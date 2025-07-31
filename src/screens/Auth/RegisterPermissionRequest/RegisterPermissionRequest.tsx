@@ -5,16 +5,25 @@ import LinearGradient from 'react-native-linear-gradient';
 import COLORS from '@colors';
 
 import styles from './RegisterPermissionRequest.style';
-import { Text, View, PermissionsAndroid } from 'react-native';
+import { Text, View } from 'react-native';
 
 import PermissionButton from './components/PermissionButton';
 import { Button, Icon } from '@components';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '@navigation/types';
 
+import {
+  checkContactsPermission,
+  checkNotificationPermission,
+  requestContactsPermission,
+  requestNotificationPermission,
+} from '@utils/permission';
+
 const RegisterPermissionRequest = () => {
+  const { t } = useTranslation();
+
   const [contactsGranted, setContactsGranted] = useState(false);
   const [notificationsGranted, setNotificationsGranted] = useState(false);
 
@@ -30,33 +39,13 @@ const RegisterPermissionRequest = () => {
   const requestPermission = async (type: PermissionType) => {
     try {
       if (type === 'contacts') {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-          {
-            title: t('text.permission_required'),
-            message: t('text.contacts_permission_description'),
-            buttonPositive: t('text.give_permission'),
-            buttonNegative: t('text.reject_permission'),
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          setContactsGranted(true);
-        }
+        const granted = await requestContactsPermission(t);
+        if (granted) setContactsGranted(true);
       }
 
       if (type === 'notifications') {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-          {
-            title: t('text.permission_required'),
-            message: t('text.notifications_permission_description'),
-            buttonPositive: t('text.give_permission'),
-            buttonNegative: t('text.reject_permission'),
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          setNotificationsGranted(true);
-        }
+        const granted = await requestNotificationPermission(t);
+        if (granted) setNotificationsGranted(true);
       }
     } catch (error: any) {
       console.log('REQUEST_PERMISSION_ERROR', error);
@@ -66,12 +55,8 @@ const RegisterPermissionRequest = () => {
   useEffect(() => {
     const checkPermissions = async () => {
       try {
-        const contactsStatus = await PermissionsAndroid.check(
-          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-        );
-        const notificationsStatus = await PermissionsAndroid.check(
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-        );
+        const contactsStatus = await checkContactsPermission();
+        const notificationsStatus = await checkNotificationPermission();
         setContactsGranted(contactsStatus);
         setNotificationsGranted(notificationsStatus);
       } catch (error) {

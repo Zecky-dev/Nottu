@@ -4,4 +4,8 @@ export type User = {
     matchCode: string;
     nameSurname: string;
     uid: string;
+    avatar?: {
+        id: string;
+        url: string;
+    } 
 }

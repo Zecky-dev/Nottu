@@ -20,6 +20,10 @@ import {
   doc,
   setDoc,
   serverTimestamp,
+  collection,
+  query,
+  where,
+  getDocs,
 } from '@react-native-firebase/firestore';
 import { mapAuthErrorToMessage } from '@utils';
 import { generateUniqueMatchCode } from '@utils/generateMatchCode';
@@ -27,9 +31,13 @@ import { useLoading } from './LoadingContext';
 import { showToast } from '@utils/toastConfig';
 import { t } from 'i18next';
 import { sendResetPasswordEmail } from '@api/auth';
+import { User } from '@types';
 
 type AuthContextType = {
   user: FirebaseAuthTypes.User | null;
+  userInfo: User | null;
+  fetchUserInfo: (uid?: string) => Promise<void>;
+  updateUserInfo: (newData: Partial<User>, userId: string) => Promise<void>;
   loading: boolean;
   error: string | null;
   registerCompleted: boolean;
@@ -44,7 +52,7 @@ type AuthContextType = {
   resetPassword: (
     email: string,
     language: 'tr' | 'en',
-  ) => Promise<{ success: true; message: string; email: string } | null>;
+  ) => Promise<{ success: boolean; message: string; email: string } | null>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -61,6 +69,7 @@ type AuthProviderProps = {
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  const [userInfo, setUserInfo] = useState<User | null>(null);
   const { showLoading, hideLoading } = useLoading();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -69,6 +78,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const auth = getAuth();
   const db = getFirestore();
 
+  // registerCompleted'ı AsyncStorage'dan yükle
   useEffect(() => {
     const loadRegisterCompleted = async () => {
       try {
@@ -91,12 +101,54 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, [registerCompleted]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
+    const unsubscribe = onAuthStateChanged(auth, async firebaseUser => {
       setUser(firebaseUser);
       setLoading(false);
+      if (firebaseUser) {
+        await fetchUserInfo(firebaseUser.uid);
+      } else {
+        setUserInfo(null);
+      }
     });
     return unsubscribe;
   }, [auth]);
+
+  const fetchUserInfo = async (uidParam?: string) => {
+    try {
+      showLoading();
+      const uid = uidParam || user?.uid;
+      if (!uid) return;
+
+      const usersRef = collection(db, 'Users');
+      const q = query(usersRef, where('uid', '==', uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const data = querySnapshot.docs[0].data() as User;
+        setUserInfo(data);
+      } else {
+        setUserInfo(null);
+      }
+    } catch (error) {
+      setUserInfo(null);
+    } finally {
+      hideLoading();
+    }
+  };
+
+  const updateUserInfo = async (newData: Partial<User>, userId: string) => {
+    try {
+      showLoading();
+      const userDocRef = doc(db, 'Users', userId);
+      await setDoc(userDocRef, newData, { merge: true });
+      await fetchUserInfo(userId);
+    } catch (error) {
+      console.error('updateUserInfo error:', error);
+      throw error;
+    } finally {
+      hideLoading();
+    }
+  };
 
   const login = async (email: string, password: string) => {
     showLoading();
@@ -146,9 +198,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         uid: currentUser.uid,
         email,
         nameSurname,
-        createdAt: serverTimestamp,
+        createdAt: serverTimestamp(),
         matchCode,
       });
+
+      // Kaydolan kullanıcı bilgilerini de çek
+      await fetchUserInfo(currentUser.uid);
+
       return currentUser;
     } catch (err: any) {
       setError(mapAuthErrorToMessage(err.code));
@@ -162,6 +218,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       await signOut(auth);
       setUser(null);
+      setUserInfo(null);
       setRegisterCompleted(false);
     } catch (err: any) {
       setError(mapAuthErrorToMessage(err.code));
@@ -173,7 +230,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const resetPassword = async (
     email: string,
     language: 'tr' | 'en',
-  ): Promise<{ success: true; message: string; email: string } | null> => {
+  ): Promise<{ success: boolean; message: string; email: string } | null> => {
     showLoading();
     setError(null);
     try {
@@ -202,6 +259,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     <AuthContext.Provider
       value={{
         user,
+        userInfo,
+        fetchUserInfo,
         loading,
         error,
         login,
@@ -210,6 +269,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         registerCompleted,
         setRegisterCompleted,
         resetPassword,
+        updateUserInfo,
       }}
     >
       {children}

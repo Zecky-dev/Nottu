@@ -5,7 +5,7 @@ import { Home } from '@screens/App';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
-const AuthStack = () => {
+const AppStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
@@ -13,4 +13,4 @@ const AuthStack = () => {
   );
 };
 
-export default AuthStack;
+export default AppStack;

@@ -74,4 +74,9 @@ export default StyleSheet.create({
     borderColor: COLORS.black,
     borderRadius: 36,
   },
+  photo: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
 });

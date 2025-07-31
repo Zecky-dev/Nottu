@@ -7,8 +7,17 @@ import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import OctIcon from 'react-native-vector-icons/Octicons';
 
-export type IconType = 'material' | 'material-community' | 'fontawesome' | 'evil' | 'antdesign' | 'ion' | 'feather'
+export type IconType =
+  | 'material'
+  | 'material-community'
+  | 'fontawesome'
+  | 'evil'
+  | 'antdesign'
+  | 'ion'
+  | 'feather'
+  | 'oct';
 
 export type IconProps = {
   type?: IconType;
@@ -17,7 +26,12 @@ export type IconProps = {
   size?: number;
 };
 
-const Icon = ({ type = 'material-community', name, color = 'black', size = 16 }: IconProps) => {
+const Icon = ({
+  type = 'material-community',
+  name,
+  color = 'black',
+  size = 16,
+}: IconProps) => {
   let IconComponent: React.ComponentType<any>;
 
   switch (type) {
@@ -40,7 +54,10 @@ const Icon = ({ type = 'material-community', name, color = 'black', size = 16 }:
       IconComponent = IonIcon;
       break;
     case 'feather':
-        IconComponent = FeatherIcon;
+      IconComponent = FeatherIcon;
+    case 'oct':
+      IconComponent = OctIcon;
+      break;
     default:
       IconComponent = MaterialCommunityIcon;
   }

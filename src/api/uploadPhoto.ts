@@ -5,28 +5,37 @@ import { Photo as PhotoType } from '@types';
 export const uploadPhotoToCloudinary = async (
   photo: PhotoType,
   idToken: string,
+  publicId: string, 
 ) => {
   try {
+    const folder = 'uploads/avatars';
+
     const { signature, timestamp, apiKey, cloudName } =
-      await getUploadSignature(idToken, 'uploads/avatars');
+      await getUploadSignature(idToken, folder, publicId);
+
     const formData = new FormData();
     formData.append('file', {
       uri: photo.uri,
       type: photo.type || 'image/jpeg',
-      name: `photo_${photo.fileName}`,
+      name: photo.fileName || 'upload.jpg',
     } as any);
     formData.append('timestamp', timestamp.toString());
     formData.append('signature', signature);
     formData.append('api_key', apiKey);
-    formData.append('folder', 'uploads/avatars');
+    formData.append('folder', folder);
+    formData.append('public_id', publicId); 
+    formData.append('overwrite', 'true'); 
+
     const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+
     const res = await apiClient.post(cloudinaryUrl, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+
     return {
-      url: res.data.secure_url,
+      url: res.data.secure_url,     
       id: res.data.public_id,
     };
   } catch (error: any) {
